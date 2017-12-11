@@ -13,9 +13,9 @@ To download package sources and install build dependencies
 To build the package follow the steps outlined below
 
     git clone https://github.com/linuxhq/rpmbuild-osticket.git rpmbuild
-    spectool -g -R rpmbuild/SPECS/osticket.spec
-    yum-builddep rpmbuild/SPECS/osticket.spec
-    rpmbuild -ba rpmbuild/SPECS/osticket.spec
+    spectool -g -R rpmbuild/rpm/osticket.spec
+    yum-builddep rpmbuild/rpm/osticket.spec
+    rpmbuild -ba rpmbuild/rpm/osticket.spec
 
 ## Partners
 

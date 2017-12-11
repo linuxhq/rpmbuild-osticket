@@ -1,12 +1,11 @@
 Name:          osTicket
-Version:       1.9.12
+Version:       1.9.16
 Release:       1%{?dist}
 Summary:       PHP-based electronic support ticket system
 Group:         Applications/System
 License:       GPLv2
 URL:           http://osticket.com
 Source0:       http://osticket.com/sites/default/files/download/%{name}-v%{version}.zip
-Source1:       %{name}.httpd
 BuildArch:     noarch
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:      httpd, php, php-gd, php-imap, php-mysql, php-xml
@@ -26,7 +25,6 @@ interface.
 
 pushd upload
 %{__mv} -f * %{buildroot}%{_datadir}/%{name}/htdocs
-%{__install} -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
 popd
 
 %clean
@@ -37,8 +35,10 @@ popd
 %defattr(-,root,root,-)
 %attr(-,apache,apache) %{_datadir}/%{name}
 %attr(755,apache,apache) %{_datadir}/%{name}/htdocs/api/pipe.php
-%{_sysconfdir}/httpd/conf.d/%{name}.conf
 
 %changelog
-* Fri May 27 2016 Taylor Kimball <taylor@linuxhq.org> - 1.9.12-1
+* Mon Dec 11 2017 Taylor Kimball <tkimball@linuxhq.org> - 1.9.16-1
+- Update to release 1.9.16
+
+* Fri May 27 2016 Taylor Kimball <tkimball@linuxhq.org> - 1.9.12-1
 - Initial build
