@@ -28,7 +28,6 @@ interface.
 %{__rm} -rf %{buildroot}
 
 %files
-%doc setup/scripts/
 %defattr(-,root,root,-)
 %attr(-,apache,apache) %{_datadir}/%{name}
 %attr(755,apache,apache) %{_datadir}/%{name}/htdocs/api/pipe.php
