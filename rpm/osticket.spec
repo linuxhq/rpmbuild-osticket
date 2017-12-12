@@ -19,8 +19,9 @@ interface.
 %prep
 %setup -n upload
 %build
-%{__install} -d -m 0755 %{buildroot}%{_datadir}/%{name}/htdocs
+
 %install
+%{__install} -d -m 0755 %{buildroot}%{_datadir}/%{name}/htdocs
 %{__mv} -f * %{buildroot}%{_datadir}/%{name}/htdocs
 
 %clean
