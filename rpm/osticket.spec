@@ -17,15 +17,11 @@ and web-based forms into a simple easy-to-use multi-user web
 interface.
 
 %prep
-%setup -c
+%setup -n upload
 %build
+%{__install} -d -m 0755 %{buildroot}%{_datadir}/%{name}/htdocs
 %install
-%{__install} -d -m 0755 %{buildroot}%{_datadir}/%{name}/htdocs \
-                        %{buildroot}%{_sysconfdir}/httpd/conf.d 
-
-pushd upload
 %{__mv} -f * %{buildroot}%{_datadir}/%{name}/htdocs
-popd
 
 %clean
 %{__rm} -rf %{buildroot}
