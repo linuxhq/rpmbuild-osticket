@@ -1,21 +1,45 @@
 # rpmbuild-osticket
 
+[![Package Cloud](https://img.shields.io/badge/packagecloud-osticket-blue.svg?style=flat)](https://packagecloud.io/linuxhq/osticket)
+[![License](https://img.shields.io/badge/license-GPLv3-brightgreen.svg?style=flat)](COPYING)
+
 Create a osTicket RPM for RHEL/CentOS.
 
 ## Requirements
 
 To download package sources and install build dependencies
 
-    yum -y install rpmdevtools yum-utils
+    sudo yum -y install mock rpmdevtools
+    sudo usermod -a -G mock $(whoami)
 
 ## Build process
 
 To build the package follow the steps outlined below
 
-    git clone https://github.com/linuxhq/rpmbuild-osticket.git rpmbuild
-    spectool -g -R rpmbuild/rpm/osticket.spec
-    yum-builddep rpmbuild/rpm/osticket.spec
-    rpmbuild -ba rpmbuild/rpm/osticket.spec
+    source /etc/os-release
+    tmp=$(mktemp -d)
+
+    git clone https://github.com/linuxhq/rpmbuild-osticket.git ${tmp}
+    mkdir -p ${tmp}/{SOURCES,SRPMS}
+    spectool -g -C ${tmp}/SOURCES ${tmp}/SPECS/*.spec
+
+    mock --clean \
+  1 # rpmbuild-osticket
+         --root epel-${VERSION_ID}-$(uname -i)
+
+  1 # rpmbuild-osticket
+    mock --buildsrpm \
+         --cleanup-after \
+         --resultdir ${tmp}/SRPMS \
+         --root epel-${VERSION_ID}-$(uname -i) \
+         --sources ${tmp}/SOURCES \
+         --spec ${tmp}/SPECS/*.spec
+
+    mock --rebuild \
+         --root epel-${VERSION_ID}-$(uname -i) \
+         ${tmp}/SRPMS/*.src.rpm
+
+    rm -rf ${tmp}
 
 ## Partners
 
@@ -27,8 +51,17 @@ A big thank you to packagecloud for supporting the open source community!
 
 ## License
 
-GPLv3
+Copyright (C) 2018 Taylor Kimball <tkimball@linuxhq.org>
 
-## Author Information
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-This package was created by [Taylor Kimball](http://www.linuxhq.org).
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
