@@ -22,16 +22,16 @@ interface.
 
 %setup -T
 %install
-%{__install} -d -m 0755 %{buildroot}%{_datadir}/%{app}/htdocs
-%{__tar} -zxvf %{SOURCE0} --strip-components=1 -C %{buildroot}%{_datadir}/%{app}/htdocs
+%{__install} -d -m 0755 %{buildroot}%{_datadir}/%{name}/htdocs
+%{__tar} -zxvf %{SOURCE0} --strip-components=1 -C %{buildroot}%{_datadir}/%{name}/htdocs
 
 %clean
 %{__rm} -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%attr(-,apache,apache) %{_datadir}/%{app}
-%attr(755,apache,apache) %{_datadir}/%{app}/htdocs/api/pipe.php
+%attr(-,apache,apache) %{_datadir}/%{name}
+%attr(755,apache,apache) %{_datadir}/%{name}/htdocs/api/pipe.php
 
 %changelog
 * Sat Jun 23 2018 Taylor Kimball <tkimball@linuxhq.org> - 1.10.2-1
