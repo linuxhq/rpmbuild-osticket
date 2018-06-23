@@ -24,10 +24,8 @@ To build the package follow the steps outlined below
     spectool -g -C ${tmp}/SOURCES ${tmp}/SPECS/*.spec
 
     mock --clean \
-  1 # rpmbuild-osticket
          --root epel-${VERSION_ID}-$(uname -i)
 
-  1 # rpmbuild-osticket
     mock --buildsrpm \
          --cleanup-after \
          --resultdir ${tmp}/SRPMS \
